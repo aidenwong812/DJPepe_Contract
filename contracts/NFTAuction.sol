@@ -49,7 +49,7 @@ www.WrappedPlatform.com
 // SPDX-License-Identifier: MIT
 //
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
@@ -146,7 +146,7 @@ contract NFTAuction is Ownable, ERC721Holder {
     // AuctionFinalized is fired when an auction is finalized
     event AuctionFinalized(address buyer, uint256 price, Auction auction);
 
-    constructor(address _owner, address _royaltyRegistry) {
+    constructor(address _owner, address _royaltyRegistry) Ownable(msg.sender) {
         _transferOwnership(_owner);
         feeAddress = _owner;
         signerAddress = _owner;
@@ -602,16 +602,19 @@ contract NFTAuction is Ownable, ERC721Holder {
             chainId := chainid()
         }
         require(
-            keccak256(
-                abi.encodePacked(
-                    this,
-                    chainId,
-                    functionName,
-                    executor,
-                    uniqueId,
-                    expireTime
-                )
-            ).toEthSignedMessageHash().recover(signature) == signerAddress,
+            ECDSA.recover(
+                keccak256(
+                    abi.encodePacked(
+                        this,
+                        chainId,
+                        functionName,
+                        executor,
+                        uniqueId,
+                        expireTime
+                    )
+                ),
+                signature
+            ) == signerAddress,
             "Invalid signature"
         );
     }

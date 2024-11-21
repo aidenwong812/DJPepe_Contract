@@ -49,7 +49,7 @@ www.WrappedPlatform.com
 
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -94,7 +94,7 @@ contract MintHelper is Ownable, ERC721Holder {
     event CreatorAdded(address creator);
     event CreatorRemoved(address creator);
 
-    constructor(address _owner) {
+    constructor(address _owner) Ownable(msg.sender) {
         _transferOwnership(_owner);
         feeAddress = _owner;
         signerAddress = _owner;
@@ -344,16 +344,19 @@ contract MintHelper is Ownable, ERC721Holder {
             chainId := chainid()
         }
         require(
-            keccak256(
-                abi.encodePacked(
-                    this,
-                    chainId,
-                    functionName,
-                    executor,
-                    uniqueId,
-                    expireTime
-                )
-            ).toEthSignedMessageHash().recover(signature) == signerAddress,
+            ECDSA.recover(
+                keccak256(
+                    abi.encodePacked(
+                        this,
+                        chainId,
+                        functionName,
+                        executor,
+                        uniqueId,
+                        expireTime
+                    )
+                ),
+                signature
+            ) == signerAddress,
             "Invalid signature"
         );
     }
