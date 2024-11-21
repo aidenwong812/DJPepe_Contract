@@ -48,7 +48,7 @@ www.WrappedPlatform.com
  */
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -70,7 +70,7 @@ contract FiatHelper is Ownable {
 
     receive() external payable {}
 
-    constructor(address owner) {
+    constructor(address owner) Ownable(msg.sender) {
         _transferOwnership(owner);
     }
 

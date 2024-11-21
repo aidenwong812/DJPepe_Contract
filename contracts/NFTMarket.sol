@@ -49,7 +49,7 @@ www.WrappedPlatform.com
 // SPDX-License-Identifier: MIT
 //
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -118,7 +118,7 @@ contract NFTMarket is Ownable, ERC721Holder {
     event ItemDelisted(uint256 id);
     event Swapped(address buyer, Pair pair);
 
-    constructor(address _owner, address _royaltyRegistry) {
+    constructor(address _owner, address _royaltyRegistry) Ownable(msg.sender) {
         _transferOwnership(_owner);
         feeAddress = _owner;
         royaltyRegistry = _royaltyRegistry;

@@ -47,7 +47,7 @@ www.WrappedPlatform.com
                            |_|                                                                |_|                     
  */
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/interfaces/IERC2981.sol";
@@ -76,6 +76,7 @@ contract WrappedNFT is ERC721, IERC2981 {
     }
     uint256 public currentID;
     mapping(uint256 => Item) public Items;
+    mapping(uint256 => bool) private _itemExists;
 
     event CollectionUriUpdated(string collection_uri);
     event CollectionNameUpdated(string collection_name);
@@ -206,6 +207,7 @@ contract WrappedNFT is ERC721, IERC2981 {
         for (uint256 i = currentID; i < lastIdx; i++) {
             _safeMint(_creator, i);
             Items[i] = Item(i, _creator, _tokenURIs[i - currentID], royalty);
+            _itemExists[i] = true;
         }
         currentID = lastIdx - 1;
     }
@@ -222,7 +224,7 @@ contract WrappedNFT is ERC721, IERC2981 {
         uint256 tokenId
     ) public view override returns (string memory) {
         require(
-            _exists(tokenId),
+            !_itemExists[tokenId],
             "ERC721Metadata: URI query for nonexistent token"
         );
         return Items[tokenId].uri;

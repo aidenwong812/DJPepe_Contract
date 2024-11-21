@@ -48,7 +48,7 @@ www.WrappedPlatform.com
  */
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.27;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
@@ -63,9 +63,7 @@ contract RoyaltyRegistry is Ownable {
 
     event NFTRegistered(address collection);
 
-    constructor() {
-        _transferOwnership(msg.sender);
-    }
+    constructor() Ownable(msg.sender) {}
 
     function emergencyWithdrawToken(
         address token_,

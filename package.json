@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "This is smart contract for DJ Pepe NFT Marketplace",
   "main": "index.js",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "deploy:testnet": "npx hardhat run --network sepolia scripts/deploy_sepolia.ts",
+    "deploy:mainnet": "npx hardhat run --network mainnet scripts/deploy.ts",
+    "test": "npx hardhat test",
+    "test:coverage": "npx hardhat coverage",
+    "test:size-contracts": "npx hardhat size-contracts"
+  },
   "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
@@ -18,6 +26,7 @@
     "@types/mocha": ">=9.1.0",
     "@types/node": ">=18.0.0",
     "chai": "^4.2.0",
+    "dotenv": "^16.4.5",
     "ethers": "^6.4.0",
     "hardhat": "^2.22.16",
     "hardhat-gas-reporter": "^1.0.8",
@@ -25,5 +34,8 @@
     "ts-node": ">=8.0.0",
     "typechain": "^8.3.0",
     "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.1.0"
   }
 }
