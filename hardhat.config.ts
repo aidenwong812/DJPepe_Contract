@@ -11,13 +11,13 @@ const config: HardhatUserConfig = {
     hardhat: {
     },
     sepolia: {
-      url: process.env.SEPOLIA_RPC,
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
       chainId: 11155111,
       gasPrice: 20000000000,
       accounts: [process.env.PRIVATE_KEY!]
     },
     mainnet: {
-      url: process.env.MAINNET_RPC,
+      url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
       chainId: 1,
       gasPrice: 20000000000,
       accounts: [process.env.PRIVATE_KEY!]
@@ -105,12 +105,6 @@ const config: HardhatUserConfig = {
         },
       },
     ],
-  },
-  paths: {
-    sources: "./contracts",
-    tests: "./test",
-    cache: "./cache",
-    artifacts: "./artifacts"
   },
   mocha: {
     timeout: 20000
