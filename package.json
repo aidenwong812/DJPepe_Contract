@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "compile": "npx hardhat compile",
-    "deploy:testnet": "npx hardhat run --network sepolia scripts/deploy_sepolia.ts",
-    "deploy:mainnet": "npx hardhat run --network mainnet scripts/deploy.ts",
+    "deploy:testnet": "npx hardhat run --network sepolia scripts/DJPepeDeploy.ts",
+    "deploy:mainnet": "npx hardhat run --network mainnet scripts/DJPepeDeploy.ts",
     "test": "npx hardhat test",
     "test:coverage": "npx hardhat coverage",
     "test:size-contracts": "npx hardhat size-contracts"
