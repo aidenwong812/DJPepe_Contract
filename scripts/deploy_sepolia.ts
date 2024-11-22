@@ -5,19 +5,12 @@ import { ethers } from 'hardhat'
 async function main() {
     // Retrieve the first signer, typically the default account in Hardhat, to use as the deployer.
     const [deployer] = await ethers.getSigners()
-    const percentForSeller: number = 85;
     console.log('Contract is deploying...')
 
     const instanceERC20 = await ethers.deployContract('MockERC20', ["DJ Pepe", "DJ Pepe"]);
     // Waiting for the contract deployment to be confirmed on the blockchain.
     await instanceERC20.waitForDeployment()
     console.log(`MockERC20 contract is deployed. ${instanceERC20.target}`)
-
-    
-    // const instanceERC721 = await ethers.deployContract('MockERC721');
-    // // Waiting for the contract deployment to be confirmed on the blockchain.
-    // await instanceERC721.waitForDeployment()
-    // console.log(`MockERC721 contract is deployed. ${instanceERC721.target}`)
 
     
     const instanceMulticall2 = await ethers.deployContract('Multicall2');
