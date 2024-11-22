@@ -26,19 +26,20 @@ async function main() {
     console.log(`Multicall2 contract is deployed. ${instanceMulticall2.target}`)
 
     
-    const instanceNFT = await ethers.deployContract('WrappedNFT');
-    // Waiting for the contract deployment to be confirmed on the blockchain.
-    await instanceNFT.waitForDeployment()
-    console.log(`WrappedNFT contract is deployed. ${instanceNFT.target}`)
+    // const owner = "0x0ed7a9E1592F505d7f40b52aa03D018C93E3dE80";
+    // const instanceNFT = await ethers.deployContract('WrappedNFT', ["", "", owner]);
+    // // Waiting for the contract deployment to be confirmed on the blockchain.
+    // await instanceNFT.waitForDeployment()
+    // console.log(`WrappedNFT contract is deployed. ${instanceNFT.target}`)
     
     
-    const instanceFiatHelper = await ethers.deployContract('FiatHelper');
+    const instanceFiatHelper = await ethers.deployContract('FiatHelper', [deployer]);
     // Waiting for the contract deployment to be confirmed on the blockchain.
     await instanceFiatHelper.waitForDeployment()
     console.log(`FiatHelper contract is deployed. ${instanceFiatHelper.target}`)
 
     
-    const instanceMintHelper = await ethers.deployContract('MintHelper');
+    const instanceMintHelper = await ethers.deployContract('MintHelper', [deployer]);
     // Waiting for the contract deployment to be confirmed on the blockchain.
     await instanceMintHelper.waitForDeployment()
     console.log(`MintHelper contract is deployed. ${instanceMintHelper.target}`)
@@ -51,12 +52,12 @@ async function main() {
     console.log(`RoyaltyRegistry contract is deployed. ${instanceRoyaltyRegistry.target}`)
 
     
-    const NFTAuction = await ethers.deployContract('NFTAuction', [royaltyRegistry]);
+    const NFTAuction = await ethers.deployContract('NFTAuction', [deployer, royaltyRegistry]);
     await NFTAuction.waitForDeployment()
     console.log(`NFTAuction is deployed. ${NFTAuction.target}`);
 
 
-    const NFTMarket = await ethers.deployContract('NFTMarket', [royaltyRegistry]);
+    const NFTMarket = await ethers.deployContract('NFTMarket', [deployer, royaltyRegistry]);
     await NFTMarket.waitForDeployment()
     console.log(`NFTMarket is deployed. ${NFTMarket.target}`);
 }
