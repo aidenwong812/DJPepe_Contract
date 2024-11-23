@@ -55,6 +55,9 @@ contract DJPepeMarket {
     // ************************ //
     //      Main Functions      //
     // ************************ //
+    function getAllListedNFTs() external view returns (NFTMarketItem[] memory) {
+        return listedNFTs;
+    }
 
     // * List Nft in the marketplace * //
     function listNft(uint256 tokenId, uint256 price) external {
