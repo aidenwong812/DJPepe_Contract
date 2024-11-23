@@ -48,7 +48,6 @@ contract DJPepeNFT is ERC721URIStorage, Ownable {
         uint256 tokenId = _tokenIds;
 
         tokenId += 1;
-        console.log("tokenId: ", tokenId);
 
         creators[tokenId] = msg.sender;
         royalties[tokenId] = royalty;
